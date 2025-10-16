@@ -1,68 +1,69 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-
   const Product = sequelize.define(
-    'products',
+    "products",
     {
       // Model attributes are defined here
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       price: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
-       categoryId: {
+      categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'categories', 
-          key: 'id'
+          model: "categories",
+          key: "id",
         },
       },
       stock: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE
-      }
+        type: DataTypes.DATE,
+      },
+    },
+    {
+      sequelize,
+      modelName: "products",
+      tableName: "products",
+    }
+  );
 
-    }, {
-    sequelize,
-    modelName: 'products',
-    tableName: 'products',
-  });
-
-   Product.associate = function(models) {
+  Product.associate = function (models) {
     Product.belongsTo(models.categories, {
-      foreignKey: 'categoryId',
-      as: 'category'
+      foreignKey: "categoryId",
+      as: "category",
     });
+
   };
+  
 
   return Product;
 };

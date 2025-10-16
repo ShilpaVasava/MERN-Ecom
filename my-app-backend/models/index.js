@@ -48,6 +48,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.Categories = require('./categories')(sequelize, Sequelize.DataTypes);
 db.Product = require('./product')(sequelize, Sequelize.DataTypes);
+db.Cart = require('./cart')(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) db[modelName].associate(db);
